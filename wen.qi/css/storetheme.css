@@ -1,7 +1,51 @@
 :root {
 	--color-offwhite: #f4f4f4;
+	--color-accent: #e07b39;
 }
 
 body {
 	background-color: var(--color-offwhite);
+}
+
+.btn {
+	display: inline-block;
+	padding: 0.5em 1.2em;
+	background-color: var(--color-accent);
+	color: white;
+	border-radius: 0.3em;
+	font-weight: bold;
+}
+
+.btn:hover {
+	background-color: var(--color-neutral-dark);
+	text-decoration: none;
+}
+
+.hero-overlay {
+	position: absolute;
+	left: 1em;
+	bottom: 1em;
+	max-width: 90%;
+	background-color: rgba(0, 0, 0, 0.5);
+	color: white;
+	padding: 1em;
+	border-radius: 0.3em;
+}
+
+.newsletter-form {
+	align-items: center;
+}
+
+input[type="email"] {
+	padding: 0.5em;
+	margin-right: 0.5em;
+	border: 1px solid var(--color-neutral-medium);
+	border-radius: 0.3em;
+}
+
+.footer {
+	background-color: var(--color-neutral-dark);
+	color: var(--color-neutral-light);
+	text-align: center;
+	padding: 1em 0;
 }
