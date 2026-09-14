@@ -4,33 +4,47 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Cool Website</title>
+
+    <link rel="stylesheet" href="lib/css/styleguide.css">
+    <link rel="stylesheet" href="css/storetheme.css">
 </head>
 <body>
 	
-    <header>
-    	<h1>Cool Website</h1>
-    	<p>Such a cool website</p>
+    <header class="navbar">
+        <div class="container display-flex">
+            <div class="flex-none">
+    	        <h1>Cool Website</h1>
+            </div>
+
+            <div class="flex-stretch"></div>
+            <nav class="flex-none nav">
+                <ul class="container display-flex">
+                    <li><a href="#article1">link 1</a></li>
+                    <li><a href="#article2">link 2</a></li>
+                    <li><a href="#article3">link 3</a></li>
+                    <li><a href="#article4">link 4</a></li>
+                </ul>
+            </nav>
+        </div>
     </header>
 
-    <nav class="nav">
-    	<ul>
-    		<li><a href="#article1">link 1</a></li>
-    		<li><a href="#article2">link 2</a></li>
-    		<li><a href="#article3">link 3</a></li>
-    		<li><a href="#article4">link 4</a></li>
-    	</ul>
-    </nav>
-
     <div class="container">
-    	<article id="article1" class="article">
-    		<h2>Article 1</h2>
+    	<article id="article1" class="article card soft">
+            <div class="display-flex flex-align-center">
+                <div class="flex-stretch">
+    		        <h2>Article 1</h2>
+                </div>
+                <div class="flex-none">
+                    <small>5:20am</small>
+                </div>
+            </div>
     		<div class="article-body">
     			<p>Lorem, ipsum dolor sit amet consectetur adipisicing, elit. Consequuntur est veniam harum. Consequuntur eos nesciunt, veritatis, dignissimos et dolores animi, doloribus vero optio repellendus explicabo sequi provident aliquid odit sed voluptates iusto hic consequatur neque. Mollitia, recusandae error. Rerum, tempora!</p>
     			<p>Et dolorum, nihil consequuntur quidem adipisci quia ipsum in! Modi, laboriosam maiores ipsa placeat eos id non, esse libero corrupti ea, saepe repellendus a ducimus beatae ex provident voluptatum deserunt perferendis ut ullam, cum consectetur. Iusto, tenetur culpa assumenda nihil.</p>
     			<p>Provident dolor enim, est, tempora velit fuga laborum optio neque necessitatibus illo amet sint, error beatae nobis? Asperiores, minima beatae sequi debitis tenetur veniam. Praesentium tempore fugit excepturi ex eum doloremque delectus nisi blanditiis vero. Asperiores explicabo repellat eius blanditiis.</p>
     		</div>
     	</article>
-    	<article id="article2" class="article">
+    	<article id="article2" class="article card hard">
     		<h2>Article 2</h2>
     		<div class="article-body">
     			<p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Tenetur voluptatum quibusdam delectus nemo ducimus commodi magni numquam. Saepe laboriosam rem iusto ipsum porro itaque quod eligendi inventore distinctio voluptates voluptate doloribus nesciunt natus magni hic, quia facilis pariatur mollitia ratione.</p>
@@ -38,6 +52,10 @@
     			<p>Porro dignissimos facilis nihil ipsam, officia, corporis, ipsa adipisci eius nemo eveniet modi eum optio expedita maxime unde. Autem facere repellendus atque libero non! Quibusdam, doloribus repellat saepe dicta sint perspiciatis incidunt, in itaque cupiditate a fugit, tenetur voluptatum obcaecati.</p>
     		</div>
     	</article>
+    </div>
+    <div class="view-window" style="background-image:url('img/mountain.jpg')">
+    </div>
+    <div class="container">
     	<article id="article3" class="article">
     		<h2>Article 3</h2>
     		<div class="article-body">
