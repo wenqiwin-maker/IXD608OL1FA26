@@ -39,10 +39,14 @@
                         <li><a href="#paragraphs">Paragraphs</a></li>
                     </ul>
                     <li><a href="#cards">Cards</a></li>
-                    <li><a href="#viewwindow">View Window</a></li>
+                    <li><a href="#herobanner">Hero Banner</a></li>
+                    <li><a href="#tags">Tags</a></li>
                     <li><a href="#navigations">Navigations</a></li>
                     <li><a href="#gridsystem">Grid System</a></li>
-                    <li><a href="#flexsystem">Flex System</a></li>
+                    <li><a href="#tables">Tables</a></li>
+                    <li><a href="#figures">Figures</a></li>
+                    <li><a href="#forms">Forms</a></li>
+                    <li><a href="#shopping">Shopping</a></li>
                 </ul>
             </nav>
         </div>
@@ -99,8 +103,24 @@
         </div>
     </div>
 
-    <div class="container" id="viewwindow">
-        <h2>View Window</h2>
+    <div class="container" id="herobanner">
+        <h2>Hero Banner</h2>
+        <div class="view-window" style="background-image: url('../img/puppy.jpg');">
+            <div class="hero-overlay">
+                <h3>Objects with a place, craft, and story.</h3>
+                <a href="#" class="btn">Shop now</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="container" id="tags">
+        <h2>Tags</h2>
+        <div class="card soft">
+            <span class="tag">E-Commerce</span>
+            <span class="tag">Handcrafts</span>
+            <span class="tag">Cultural Goods</span>
+            <span class="tag">Regional Specialties</span>
+        </div>
     </div>
 
     <div class="container" id="navigations">
@@ -131,34 +151,11 @@
         </div>
 
         <div class="card soft">
-            <h3>Flex Nav</h3>
-
-            <script>makeNav('nav nav-flex')</script>
-        </div>
-
-        <div class="card soft">
-            <h3>Stretch Nav</h3>
-
-            <script>makeNav('nav nav-stretch')</script>
-        </div>
-
-        <div class="card soft">
             <h3>Pills Nav</h3>
 
             <script>makeNav('nav nav-pills')</script>
         </div>
 
-        <div class="card soft">
-            <h3>Crumbs Nav</h3>
-
-            <script>makeNav('nav nav-crumbs')</script>
-        </div>
-
-        <div class="card soft">
-            <h3>Material Nav</h3>
-
-            <script>makeNav('nav nav-material')</script>
-        </div>
     </div>
 
     <script>
@@ -171,21 +168,27 @@
 
     <div class="container" id="gridsystem">
         <h2>Grid System</h2>
-    </div>
 
-    <div class="container" id="flexsystem">
-        <h2>Flex System</h2>
+        <div class="grid gap">
+            <div class="col-3"><div class="card medium">col-3</div></div>
+            <div class="col-3"><div class="card medium">col-3</div></div>
+            <div class="col-3"><div class="card medium">col-3</div></div>
+            <div class="col-3"><div class="card medium">col-3</div></div>
+            <div class="col-4"><div class="card medium">col-4</div></div>
+            <div class="col-8"><div class="card medium">col-8</div></div>
+            <div class="col-6"><div class="card medium">col-6</div></div>
+            <div class="col-6"><div class="card medium">col-6</div></div>
+        </div>
     </div>
 
 	<script>
 	const makeTable = (classes='') => {
-		const head = ['ID','Office','name','email','phone'];
+		const head = ['Product','Origin','Qty','Price'];
 		const body = [
-			['522',"Hamilton Cline", 'hcline@academyart.edu','555-2424'],
-			['512',"Fred McHale", 'fmchale@academyart.edu','555-2424'],
-			['522',"Michael Catanzaro", 'mcatanzaro@academyart.edu','555-2424'],
-			['514',"Andrea Pimentel", 'apimentel@academyart.edu','555-2424'],
-			['516',"DC Scarpelli", 'dscarpelli@academyart.edu','555-2424'],			
+			['Handwoven Bamboo Basket','Fujian, China','1','$48.00'],
+			['Ceramic Tea Set','Jingdezhen, China','2','$72.00'],
+			['Wool Throw Blanket','Cusco, Peru','1','$65.00'],
+			['Olive Oil Soap','Aleppo, Syria','3','$18.00'],
 		];
 
 		// let ran = Math.floor(Math.random()*iinks.length);	
@@ -194,56 +197,20 @@
 			<thead><tr>${head.reduce((r,o)=>r+`<th>${o}</th>`,'')}</tr></thead>
 			<tbody>${body.reduce((r,o,i)=>r+
 				`<tr>${
-					[i+1,...o].reduce((r,o)=>r+`<td>${o}</td>`,'')
+					o.reduce((r,o)=>r+`<td>${o}</td>`,'')
 				}</tr>`,'')
 			}</tbody>
 		</table>
 		`);
 	}
 	</script>
-	<div class="container">
+	<div class="container" id="tables">
 		<h2>Tables</h2>
 
 		<div class="card soft">
 			<h3>Basic Table</h3>
 			
 			<script>makeTable("table")</script>
-		</div>
-
-		<div class="card soft">
-			<h3>Striped Table</h3>
-			
-			<script>makeTable("table striped")</script>
-		</div>
-
-		<div class="card soft">
-			<h3>Striped Lined Vertical</h3>
-			
-			<script>makeTable("table lined vertical")</script>
-		</div>
-
-		<div class="card soft">
-			<h3>Striped Lined Horizontal</h3>
-			
-			<script>makeTable("table lined horizontal")</script>
-		</div>
-
-		<div class="card soft">
-			<h3>Striped Lined Border</h3>
-			
-			<script>makeTable("table lined border")</script>
-		</div>
-
-		<div class="card soft">
-			<h3>Striped Lined All</h3>
-			
-			<script>makeTable("table lined all")</script>
-		</div>
-
-		<div class="card soft">
-			<h3>Combinations</h3>
-			
-			<script>makeTable("table lined vertical border striped")</script>
 		</div>
 
 		<h2 id="figures">Figures</h2>
@@ -285,74 +252,199 @@
 		<h3>Product Grid</h3>
 
 		<div class="grid gap">
-			<div class="col-4">
+			<div class="col-3">
 				<figure class="figure product">
 					<img src="../img/placeholder.png" alt="Product placeholder">
 					<figcaption>
 						<div>Product Name</div>
 						<div>$3.99</div>
+						<div class="form-control">
+							<button type="button" class="form-button primary">Add to cart</button>
+						</div>
 					</figcaption>
 				</figure>
 			</div>
-		
-			<div class="col-4">
+			<div class="col-3">
 				<figure class="figure product">
 					<img src="../img/placeholder.png" alt="Product placeholder">
 					<figcaption>
 						<div>Product Name</div>
 						<div>$3.99</div>
+						<div class="form-control">
+							<button type="button" class="form-button primary">Add to cart</button>
+						</div>
 					</figcaption>
 				</figure>
 			</div>
-		
-			<div class="col-4">
+			<div class="col-3">
 				<figure class="figure product">
 					<img src="../img/placeholder.png" alt="Product placeholder">
 					<figcaption>
 						<div>Product Name</div>
 						<div>$3.99</div>
+						<div class="form-control">
+							<button type="button" class="form-button primary">Add to cart</button>
+						</div>
+					</figcaption>
+				</figure>
+			</div>
+			<div class="col-3">
+				<figure class="figure product">
+					<img src="../img/placeholder.png" alt="Product placeholder">
+					<figcaption>
+						<div>Product Name</div>
+						<div>$3.99</div>
+						<div class="form-control">
+							<button type="button" class="form-button primary">Add to cart</button>
+						</div>
 					</figcaption>
 				</figure>
 			</div>
 		</div>
+	</div>
 
-		<h3>Product Overlay</h3>
+	<div class="container" id="forms">
+		<h2>Forms</h2>
 
-		<div class="grid gap">
-			<div class="col-4">
-				<figure class="figure product-overlay">
-					<img src="../img/placeholder.png" alt="Product placeholder">
-					<figcaption>
-						<div class="caption-body">
-							<div>Product Name</div>
-							<div>$3.99</div>
-						</div>
-					</figcaption>
-				</figure>
+		<h2>Inputs</h2>
+		<div class="card soft">
+			<h3>Default Inputs</h3>
+			<form>
+				<input type="text"><br>
+				<input type="number"><br>
+				<input type="password"><br>
+				<input type="url"><br>
+				<input type="email"><br>
+				<input type="datetime-local"><br>
+				<input type="date"><br>
+				<input type="search"><br>
+			</form>
+
+			<h3>Form Input</h3>
+			<form>
+				<input type="text" class="form-input" placeholder="Text input">
+			</form>
+		</div>
+
+		<h2 id="buttons">Buttons</h2>
+		<div class="card soft">
+			<h3>Default Buttons</h3>
+			<button>Button</button>
+
+			<h3>Form Buttons</h3>
+			<div class="form-control">
+				<button type="button" class="form-button">Button</button>
 			</div>
-		
-			<div class="col-4">
-				<figure class="figure product-overlay">
-					<img src="../img/placeholder.png" alt="Product placeholder">
-					<figcaption>
-						<div class="caption-body">
-							<div>Product Name</div>
-							<div>$3.99</div>
-						</div>
-					</figcaption>
-				</figure>
+			<div class="form-control">
+				<input type="button" class="form-button" value="Input">
 			</div>
-		
-			<div class="col-4">
-				<figure class="figure product-overlay">
-					<img src="../img/placeholder.png" alt="Product placeholder">
-					<figcaption>
-						<div class="caption-body">
-							<div>Product Name</div>
-							<div>$3.99</div>
-						</div>
-					</figcaption>
-				</figure>
+			<div class="form-control">
+				<a href="#" class="form-button">Anchor</a>
+			</div>
+		</div>
+
+		<h2 id="hotdog">Hotdog</h2>
+		<div class="card soft">
+			<div class="form-control">
+				<form class="hotdog">
+					<input type="search" placeholder="Search">
+				</form>
+			</div>
+
+			<div class="form-control">
+				<form class="hotdog">
+					<input type="search" placeholder="Search">
+					<input type="submit" class="form-button primary" value="Search">
+				</form>
+			</div>
+
+			<div class="form-control">
+				<form class="hotdog">
+					<span style="padding-left: 0.5em; color: var(--color-neutral-medium);">🔍</span>
+					<input type="search" placeholder="Search" style="padding-left: 0.5em;">
+				</form>
+			</div>
+
+			<div class="form-control">
+				<form class="hotdog">
+					<input type="search" placeholder="Search">
+					<span style="padding-right: 0.5em; color: var(--color-neutral-medium);">🔍</span>
+				</form>
+			</div>
+		</div>
+
+		<h2 id="select">Select</h2>
+		<div class="card soft">
+			<div class="form-select">
+				<select>
+					<option>1</option>
+					<option>2</option>
+					<option>3</option>
+					<option>4</option>
+				</select>
+			</div>
+		</div>
+
+		<h2 id="checkboxes">Check Boxes</h2>
+		<div class="card soft">
+			<h3>Basic Checkbox</h3>
+			<label><input type="checkbox"> Label</label> &nbsp;&nbsp;
+			<label><input type="checkbox" checked> Label</label>
+
+			<h3>Heart Checkbox</h3>
+			<div class="favorite">
+				<input type="checkbox" id="favorite-1">
+				<label for="favorite-1">&hearts;</label>
+			</div>
+
+			<h3>Toggle</h3>
+			<div class="toggle">
+				<input type="checkbox" id="toggle-1">
+				<label for="toggle-1"></label>
+			</div>
+		</div>
+	</div>
+
+	<div class="container" id="shopping">
+		<h2>Shopping</h2>
+
+		<h3>Color Swatches</h3>
+		<div class="card soft">
+			<span class="swatch" style="background-color: #c2913e;"></span>
+			<span class="swatch" style="background-color: #e9cc9a;"></span>
+			<span class="swatch" style="background-color: #eee2cc;"></span>
+			<span class="swatch" style="background-color: #1d1a24;"></span>
+		</div>
+
+		<h3>Quantity Stepper</h3>
+		<div class="card soft">
+			<div class="stepper">
+				<button type="button">-</button>
+				<span>1</span>
+				<button type="button">+</button>
+			</div>
+		</div>
+
+		<h3>Order Summary</h3>
+		<div class="card soft">
+			<table class="table">
+				<tbody>
+					<tr><td>Subtotal</td><td>$48.00</td></tr>
+					<tr><td>Shipping</td><td>$5.00</td></tr>
+					<tr><td>Tax</td><td>$3.84</td></tr>
+					<tr><td><strong>Estimated total</strong></td><td><strong>$56.84</strong></td></tr>
+				</tbody>
+			</table>
+			<div class="form-control">
+				<a href="#" class="form-button primary">Checkout</a>
+			</div>
+		</div>
+
+		<h3>Progress Bar</h3>
+		<div class="card soft">
+			<p>Order Progress</p>
+			<div class="progress">
+				<div class="progress-bar" style="width: 30%;"></div>
 			</div>
 		</div>
 	</div>
