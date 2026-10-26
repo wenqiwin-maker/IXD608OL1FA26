@@ -18,3 +18,36 @@ function productCard($id, $product) {
 	echo '</figcaption>';
 	echo '</figure>';
 }
+
+function file_get_json($filename) {
+	$json = file_get_contents($filename);
+	return json_decode($json);
+}
+
+function showUserEditor($action, $user) {
+	$name = $user->name;
+	$email = $user->email;
+	$interests = implode(", ", $user->interests);
+
+	echo <<<HTML
+<form action="$action" method="post">
+	<div class="form-control">
+		<label class="form-label" for="name">Name</label>
+		<input class="form-input" type="text" id="name" name="name" value="$name">
+	</div>
+	<div class="form-control">
+		<label class="form-label" for="type">Type</label>
+		<input class="form-input" type="text" id="type" name="type" value="$user->type">
+	</div>
+	<div class="form-control">
+		<label class="form-label" for="email">Email</label>
+		<input class="form-input" type="text" id="email" name="email" value="$email">
+	</div>
+	<div class="form-control">
+		<label class="form-label" for="interests">Interests (separate with a comma and a space)</label>
+		<input class="form-input" type="text" id="interests" name="interests" value="$interests">
+	</div>
+	<div class="form-control"><button type="submit" class="form-button primary">Save changes</button></div>
+</form>
+HTML;
+}

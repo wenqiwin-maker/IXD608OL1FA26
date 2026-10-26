@@ -17,6 +17,7 @@ $page_title = "Me";
 		<div class="card soft">
 			<p>Sign in is coming soon.</p>
 			<p><a href="product_cart.php">View cart</a></p>
+			<p><a href="user_list.php">Manage users</a></p>
 		</div>
 	</div>
 

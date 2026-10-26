@@ -1,0 +1,26 @@
+[
+    {
+        "name": "John Smith",
+        "type": "customer",
+        "email": "john.smith@gmail.com",
+        "interests": ["Ceramics", "Hand Weaving"]
+    },
+    {
+        "name": "Mary Johnson",
+        "type": "maker",
+        "email": "mary.johnson@gmail.com",
+        "interests": ["Coil Weaving", "Basketry", "Textiles"]
+    },
+    {
+        "name": "David Brown",
+        "type": "customer",
+        "email": "david.brown@gmail.com",
+        "interests": ["Ceramics", "Stonework"]
+    },
+    {
+        "name": "Emily Davis",
+        "type": "admin",
+        "email": "emily.davis@gmail.com",
+        "interests": ["Curation"]
+    }
+]
