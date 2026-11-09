@@ -653,3 +653,242 @@ hr {
 .sort-select {
 	width: 14em;
 }
+
+/* SHOP: FILTER PILLS & MENUS */
+
+.filter-bar {
+	gap: 0.6em;
+	margin: 1.5em 0;
+	padding: 0.8em 0;
+	border-top: 1px solid var(--color-light-grey);
+	border-bottom: 1px solid var(--color-light-grey);
+	position: relative;
+	flex-wrap: wrap;
+}
+
+.pill {
+	display: inline-block;
+	padding: 0.4em 1em;
+	border: 1px solid var(--color-light-grey);
+	border-radius: var(--radius-pill);
+	background-color: var(--color-offwhite);
+	font-size: 0.85em;
+	font-weight: 400;
+	cursor: pointer;
+	list-style: none;
+}
+
+.pill:hover {
+	text-decoration: none;
+	border-color: var(--color-deep-beige);
+}
+
+.pill.active {
+	background-color: var(--color-black);
+	color: var(--color-warm-white);
+	border-color: var(--color-black);
+}
+
+summary.pill::-webkit-details-marker {
+	display: none;
+}
+
+.menu {
+	position: relative;
+}
+
+.menu-list {
+	position: absolute;
+	top: 2.6em;
+	left: 0;
+	z-index: 10;
+	min-width: 12em;
+	background-color: var(--color-offwhite);
+	border: 1px solid var(--color-light-grey);
+	border-radius: var(--radius-card);
+	box-shadow: 0 6px 20px rgba(0, 0, 0, 0.12);
+	overflow: hidden;
+}
+
+.menu-right .menu-list {
+	left: auto;
+	right: 0;
+}
+
+.menu-list a {
+	display: block;
+	padding: 0.7em 1em;
+	font-weight: 400;
+	font-size: 0.9em;
+	border-bottom: 1px solid var(--color-light-grey);
+}
+
+.menu-list a:last-child {
+	border-bottom: none;
+}
+
+.menu-list a:hover {
+	background-color: var(--color-cream);
+	text-decoration: none;
+}
+
+/* SHOP: PRODUCT, CART, CHECKOUT, CONFIRMATION */
+
+.hidden {
+	display: none;
+}
+
+.disabled {
+	opacity: 0.5;
+	cursor: not-allowed;
+}
+
+.ship-option {
+	display: flex;
+	align-items: center;
+	gap: 1em;
+	padding: 0.8em 0;
+}
+
+.check-circle {
+	display: inline-block;
+	width: 3em;
+	height: 3em;
+	line-height: 3em;
+	border-radius: 50%;
+	background-color: var(--color-deep-beige);
+	color: var(--color-offwhite);
+	font-size: 1.4em;
+}
+
+.card.hard {
+	padding: 1.5em;
+	margin: 1.5em 0;
+}
+
+.progress-labels {
+	font-size: 0.85em;
+	margin-bottom: 1em;
+}
+
+.card .cart-item:last-of-type {
+	border-bottom: none;
+}
+
+.form-button.button-split {
+	padding-left: 1.2em;
+	padding-right: 1.2em;
+}
+
+.button-split span {
+	white-space: nowrap;
+}
+
+.progress {
+	margin: 1em 0;
+}
+
+/* product photo on the item page: don't stretch to the height of the text column */
+.figure.product.item-photo {
+	height: auto;
+}
+
+/* order summary card on checkout: smaller thumbnail */
+#summary .cart-item img {
+	width: 4em;
+	height: 4em;
+}
+
+.table td:last-child {
+	text-align: right;
+}
+
+/* space above the footer */
+div.container + footer.container {
+	margin-top: 3em;
+}
+
+.progress-bar {
+	width: 33%;
+}
+
+.nowrap {
+	white-space: nowrap;
+}
+
+.form-button.auto-width {
+	width: auto;
+}
+
+/* product photos come in different shapes, so crop them all to the same box */
+.product.figure .image-wrap img {
+	display: block;
+	width: 100%;
+	aspect-ratio: 1 / 1;
+	object-fit: cover;
+}
+
+.product.figure.item-photo img {
+	height: auto;
+	aspect-ratio: 5 / 6;
+	object-fit: cover;
+}
+
+.cart-item img {
+	aspect-ratio: 1 / 1;
+	object-fit: cover;
+}
+
+/* PHOTO SLIDESHOW (product page) */
+
+.item-photo {
+	position: relative;
+}
+
+.gallery-arrow {
+	position: absolute;
+	top: 40%;
+	width: 2.4em;
+	height: 2.4em;
+	border: none;
+	border-radius: 50%;
+	background-color: var(--color-offwhite);
+	font-size: 1.4em;
+	line-height: 1;
+	cursor: pointer;
+	box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+.gallery-arrow:hover {
+	background-color: var(--color-deep-beige);
+}
+
+.gallery-prev {
+	left: 0.8em;
+}
+
+.gallery-next {
+	right: 0.8em;
+}
+
+.gallery-thumbs {
+	display: flex;
+	gap: 0.6em;
+	margin-top: 0.8em;
+}
+
+.thumb {
+	width: 5em;
+	height: 5em;
+	object-fit: cover;
+	border-radius: 0.8em;
+	border: 2px solid transparent;
+	cursor: pointer;
+	opacity: 0.7;
+}
+
+.thumb.active,
+.thumb:hover {
+	opacity: 1;
+	border-color: var(--color-deep-beige);
+}

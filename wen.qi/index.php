@@ -1,8 +1,8 @@
 <?php
-include "lib/php/data.php";
 include "lib/php/functions.php";
 
 $page_title = "Home";
+$featured = fetchAll("SELECT * FROM products WHERE featured = 1 ORDER BY id LIMIT 4");
 ?><!DOCTYPE html>
 <html lang="en">
 <head>
@@ -25,10 +25,9 @@ $page_title = "Home";
 		<p class="eyebrow">Newly found</p>
 		<h2>Objects worth discovering</h2>
 		<div class="grid gap">
-			<div class="col-xs-6 col-md-3"><?php productCard(0, $products[0]) ?></div>
-			<div class="col-xs-6 col-md-3"><?php productCard(1, $products[1]) ?></div>
-			<div class="col-xs-6 col-md-3"><?php productCard(2, $products[2]) ?></div>
-			<div class="col-xs-6 col-md-3"><?php productCard(3, $products[3]) ?></div>
+			<?php foreach ($featured as $product) { ?>
+				<div class="col-xs-6 col-md-3"><?php productCard($product) ?></div>
+			<?php } ?>
 		</div>
 		<p><a href="product_list.php">Shop all objects &rsaquo;</a></p>
 	</div>
