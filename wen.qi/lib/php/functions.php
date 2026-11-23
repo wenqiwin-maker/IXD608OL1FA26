@@ -4,13 +4,17 @@
 
 include_once "lib/php/auth.php";
 include_once "lib/php/cart.php";
+include_once "lib/php/products.php";
 
 // Connect to the database (stops the page if it can't)
 function makeConn() {
 	global $db_host, $db_user, $db_pass, $db_name;
-	$conn = mysqli_connect($db_host, $db_user, $db_pass, $db_name);
-	if (!$conn) {
-		die("Could not connect to the database");
+	static $conn = null;
+	if ($conn === null) {
+		$conn = mysqli_connect($db_host, $db_user, $db_pass, $db_name);
+		if (!$conn) {
+			die("Could not connect to the database");
+		}
 	}
 	return $conn;
 }

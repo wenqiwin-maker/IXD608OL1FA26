@@ -946,3 +946,108 @@ div.container + footer.container {
 	opacity: 0.3;
 	cursor: not-allowed;
 }
+
+.result-summary {
+	margin: 0 0 1em;
+}
+
+.chips {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	gap: 0.5em;
+}
+
+.chips:not(:empty) {
+	margin-bottom: 1em;
+}
+
+.chips .link-underline {
+	margin-left: 0.5em;
+	font-size: 0.85em;
+}
+
+.chip {
+	padding: 0.3em 0.8em;
+	border: 1px solid var(--color-black);
+	border-radius: var(--radius-pill);
+	background-color: var(--color-black);
+	color: var(--color-warm-white);
+	font: inherit;
+	font-size: 0.85em;
+	cursor: pointer;
+}
+
+.chip:hover {
+	background-color: var(--color-deep-beige);
+	border-color: var(--color-deep-beige);
+	color: var(--color-black);
+}
+
+#product-grid {
+	min-height: 12em;
+	transition: opacity 0.15s;
+}
+
+#product-grid.is-loading {
+	opacity: 0.5;
+}
+
+.product figcaption .display-flex {
+	gap: 0.5em;
+}
+
+@media (max-width: 840px) {
+	.container {
+		padding-left: 1em;
+		padding-right: 1em;
+	}
+}
+
+@media (max-width: 640px) {
+	.site-header {
+		padding: 0.7em 1em;
+	}
+
+	.site-header-inner {
+		flex-wrap: wrap;
+		gap: 0.6em 0.3em;
+	}
+
+	.site-header .logo {
+		margin-right: auto;
+	}
+
+	.site-header .hotdog {
+		order: 3;
+		flex: 1 0 100%;
+	}
+
+	.site-header .nav a {
+		padding: 0.3em 0.45em;
+	}
+
+	.pill {
+		padding: 0.6em 1em;
+	}
+
+	.menu-list a {
+		padding: 0.9em 1em;
+	}
+
+	.menu {
+		position: static;
+	}
+
+	.menu-list,
+	.menu-right .menu-list {
+		top: auto;
+		left: 0;
+		right: 0;
+		margin-top: 0.4em;
+	}
+}
+
+.filter-bar .menu-right {
+	margin-left: auto;
+}

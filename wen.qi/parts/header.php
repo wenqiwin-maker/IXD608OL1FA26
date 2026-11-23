@@ -9,7 +9,7 @@
 		</nav>
 		<form class="hotdog flex-stretch" action="product_list.php" method="get">
 			<span class="hotdog-icon"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg></span>
-			<input type="search" name="search" placeholder="Search objects, places, and makers">
+			<input type="search" name="search" placeholder="Search objects, places, and makers" aria-label="Search objects, places, and makers" autocomplete="off" enterkeyhint="search" value="<?php echo htmlspecialchars(cleanParams($_GET)["search"]) ?>">
 		</form>
 		<nav class="nav flex-none">
 			<ul class="display-flex">
