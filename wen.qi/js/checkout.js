@@ -2,6 +2,7 @@
 // Nothing is saved, this only changes what you see.
 
 function money(amount) {
+	amount = Math.round(amount * 100) / 100;
 	if (amount == Math.floor(amount)) {
 		return "$" + amount;
 	}
@@ -11,7 +12,7 @@ function money(amount) {
 $("input[name=shipping]").on("change", function() {
 	var summary = $("#summary");
 	var cost = Number($(this).data("cost"));
-	var total = Number(summary.data("price")) + Number(summary.data("tax")) + cost;
+	var total = Number(summary.data("subtotal")) + Number(summary.data("tax")) + cost;
 
 	$("#shipping").text(cost == 0 ? "Complimentary" : money(cost));
 	$("#total").text(money(total));

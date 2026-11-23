@@ -1,5 +1,4 @@
 <?php
-include "lib/php/data.php";
 include "lib/php/functions.php";
 
 $page_title = "Me";

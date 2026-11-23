@@ -1,13 +1,15 @@
 <?php
 include "lib/php/functions.php";
 
-// Prototype: checks out the product from ?id= (product 1 if none)
-$product = getProductFromUrl(1);
-$page_title = "Checkout";
-
-if ($product) {
-	$tax = round($product->price * 0.07, 2);
+$items = getCartItems();
+if (count($items) == 0) {
+	header("Location: product_cart.php");
+	exit;
 }
+
+$totals = getTotals($items);
+$methods = shippingMethods();
+$page_title = "Checkout";
 ?><!DOCTYPE html>
 <html lang="en">
 <head>
@@ -18,15 +20,10 @@ if ($product) {
 	<?php include "parts/header.php" ?>
 
 	<div class="container">
-		<p><a href="product_cart.php<?php echo $product ? '?id=' . $product->id : '' ?>">&larr; Back to shopping bag</a></p>
+		<p><a href="product_cart.php">&larr; Back to shopping bag</a></p>
 		<h1>Checkout</h1>
 
-		<?php if (!$product) { ?>
-			<p>Your bag is empty. <a href="product_list.php">Continue shopping &rsaquo;</a></p>
-		<?php } else { ?>
-
 		<form action="product_confirmation.php" method="post">
-			<input type="hidden" name="id" value="<?php echo $product->id ?>">
 			<div class="grid gap">
 				<div class="col-xs-12 col-md-8">
 
@@ -75,21 +72,13 @@ if ($product) {
 
 					<hr>
 					<h3>Shipping method</h3>
-					<label class="ship-option">
-						<input type="radio" name="shipping" value="standard" data-cost="0" checked>
-						<span class="flex-stretch"><strong>Standard</strong><br><span class="supporting">Arrives by <?php echo date("D, F j", strtotime("+5 days")) ?></span></span>
-						<span>Free</span>
-					</label>
-					<label class="ship-option">
-						<input type="radio" name="shipping" value="express" data-cost="20">
-						<span class="flex-stretch"><strong>Express</strong><br><span class="supporting">Arrives by <?php echo date("D, F j", strtotime("+4 days")) ?></span></span>
-						<span>$20.00</span>
-					</label>
-					<label class="ship-option">
-						<input type="radio" name="shipping" value="priority" data-cost="30">
-						<span class="flex-stretch"><strong>Priority</strong><br><span class="supporting">Arrives by <?php echo date("D, F j", strtotime("+3 days")) ?></span></span>
-						<span>$30.00</span>
-					</label>
+					<?php foreach ($methods as $value => $method) { ?>
+						<label class="ship-option">
+							<input type="radio" name="shipping" value="<?php echo $value ?>" data-cost="<?php echo $method->cost ?>" <?php echo $value == "standard" ? "checked" : "" ?>>
+							<span class="flex-stretch"><strong><?php echo $method->name ?></strong><br><span class="supporting">Arrives by <?php echo date("D, F j", strtotime("+" . $method->days . " days")) ?></span></span>
+							<span><?php echo $method->cost == 0 ? "Free" : money($method->cost) ?></span>
+						</label>
+					<?php } ?>
 
 					<hr>
 					<h3>Payment</h3>
@@ -109,25 +98,30 @@ if ($product) {
 				</div>
 
 				<div class="col-xs-12 col-md-4">
-					<div class="card soft" id="summary" data-price="<?php echo $product->price ?>" data-tax="<?php echo $tax ?>">
+					<div class="card soft" id="summary" data-subtotal="<?php echo $totals->subtotal ?>" data-tax="<?php echo $totals->tax ?>">
 						<div class="display-flex flex-align-center">
 							<h4 class="flex-stretch">Order summary</h4>
-							<span>1 item</span>
+							<span><?php echo cartCount() ?> <?php echo cartCount() == 1 ? "item" : "items" ?></span>
 						</div>
-						<div class="cart-item">
-							<img src="<?php echo $product->image ?>" alt="<?php echo $product->name ?>">
-							<div class="flex-stretch">
-								<strong><?php echo $product->name ?></strong>
-								<p class="supporting">Qty 1</p>
+						<?php foreach ($items as $item) { ?>
+							<div class="cart-item">
+								<img src="<?php echo $item->product->image ?>" alt="<?php echo $item->product->name ?>">
+								<div class="flex-stretch">
+									<strong><?php echo $item->product->name ?></strong>
+									<?php if (count($item->choices) > 0) { ?>
+										<p class="supporting"><?php echo choicesText($item->choices) ?></p>
+									<?php } ?>
+									<p class="supporting">Qty <?php echo $item->amount ?></p>
+								</div>
+								<div class="price"><?php echo money($item->total) ?></div>
 							</div>
-							<div class="price"><?php echo money($product->price) ?></div>
-						</div>
+						<?php } ?>
 						<table class="table">
 							<tbody>
-								<tr><td>Subtotal</td><td><?php echo money($product->price) ?></td></tr>
+								<tr><td>Subtotal</td><td><?php echo money($totals->subtotal) ?></td></tr>
 								<tr><td>Shipping</td><td id="shipping">Complimentary</td></tr>
-								<tr><td>Tax</td><td><?php echo money($tax) ?></td></tr>
-								<tr><td><strong>Total</strong></td><td><strong id="total"><?php echo money($product->price + $tax) ?></strong></td></tr>
+								<tr><td>Tax</td><td><?php echo money($totals->tax) ?></td></tr>
+								<tr><td><strong>Total</strong></td><td><strong id="total"><?php echo money($totals->total) ?></strong></td></tr>
 							</tbody>
 						</table>
 						<div class="form-control">
@@ -138,8 +132,6 @@ if ($product) {
 				</div>
 			</div>
 		</form>
-
-		<?php } ?>
 	</div>
 
 	<?php include "parts/footer.php" ?>

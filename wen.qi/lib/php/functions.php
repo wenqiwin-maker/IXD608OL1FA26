@@ -3,6 +3,7 @@
 // DATABASE
 
 include_once "lib/php/auth.php";
+include_once "lib/php/cart.php";
 
 // Connect to the database (stops the page if it can't)
 function makeConn() {

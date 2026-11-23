@@ -13,7 +13,7 @@
 		</form>
 		<nav class="nav flex-none">
 			<ul class="display-flex">
-				<li><a href="product_cart.php">Cart <span class="badge">1</span></a></li>
+				<li><a href="product_cart.php">Cart <?php if (cartCount() > 0) { ?><span class="badge"><?php echo cartCount() ?></span><?php } ?></a></li>
 				<li><a href="account.php">Me</a></li>
 			</ul>
 		</nav>

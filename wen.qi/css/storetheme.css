@@ -892,3 +892,57 @@ div.container + footer.container {
 	opacity: 1;
 	border-color: var(--color-deep-beige);
 }
+
+.option-choices {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 0.5em;
+}
+
+.option-choices label {
+	position: relative;
+	cursor: pointer;
+}
+
+.option-choices input {
+	position: absolute;
+	opacity: 0;
+}
+
+.option-choices span {
+	display: inline-block;
+	padding: 0.4em 1em;
+	border: 1px solid var(--color-light-grey);
+	border-radius: var(--radius-pill);
+	background-color: var(--color-offwhite);
+	font-size: 0.9em;
+}
+
+.option-choices label:hover span {
+	border-color: var(--color-deep-beige);
+}
+
+.option-choices input:checked + span {
+	background-color: var(--color-black);
+	border-color: var(--color-black);
+	color: var(--color-warm-white);
+}
+
+.option-choices input:focus-visible + span {
+	outline: 2px solid var(--color-deep-beige);
+	outline-offset: 2px;
+}
+
+.link-button {
+	border: 0;
+	background: none;
+	padding: 0;
+	font: inherit;
+	color: inherit;
+	cursor: pointer;
+}
+
+.stepper button:disabled {
+	opacity: 0.3;
+	cursor: not-allowed;
+}

@@ -70,6 +70,8 @@ $products = fetchAll("SELECT * FROM products WHERE " . implode(" AND ", $where) 
 		<h1>Objects with a place, craft, and story.</h1>
 		<p>Useful, beautiful things selected from workshops and traditions around the world.</p>
 
+		<?php showMessage() ?>
+
 		<?php include "parts/filters.php" ?>
 
 		<?php if ($search != "") { ?>

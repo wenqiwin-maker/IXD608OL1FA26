@@ -9,6 +9,9 @@ if ($product) {
 
 	// the photos column holds file names separated by commas, main photo first
 	$images = explode(",", $product->images);
+
+	$options = getOptions($product);
+	$most = min($product->stock, 10);
 } else {
 	$page_title = "Not found";
 }
@@ -23,6 +26,8 @@ if ($product) {
 
 	<div class="container">
 		<p><a href="product_list.php">&larr; Back to collection</a></p>
+
+		<?php showMessage() ?>
 
 		<?php if (!$product) { ?>
 
@@ -58,13 +63,43 @@ if ($product) {
 					<strong class="flex-stretch">Finish</strong>
 					<span><?php echo $product->finish ?></span>
 				</div>
-				<p>
-					<?php if ($product->stock > 0) { ?>
-						<a href="product_cart.php?id=<?php echo $product->id ?>" class="form-button primary button-split"><span>Add to cart</span><span><?php echo money($product->price) ?></span></a>
-					<?php } else { ?>
-						<span class="form-button primary button-split disabled"><span>Sold out</span></span>
-					<?php } ?>
-				</p>
+
+				<?php if ($product->stock > 0) { ?>
+					<form action="product_actions.php?action=add-to-cart" method="post">
+						<input type="hidden" name="id" value="<?php echo $product->id ?>">
+
+						<?php foreach ($options as $option) { ?>
+							<div class="form-control">
+								<span class="form-label"><?php echo htmlspecialchars($option->name) ?></span>
+								<div class="option-choices">
+									<?php foreach ($option->values as $i => $value) { ?>
+										<label>
+											<input type="radio" name="options[<?php echo htmlspecialchars($option->name) ?>]" value="<?php echo htmlspecialchars($value) ?>" <?php echo $i == 0 ? "checked" : "" ?>>
+											<span><?php echo htmlspecialchars($value) ?></span>
+										</label>
+									<?php } ?>
+								</div>
+							</div>
+						<?php } ?>
+
+						<div class="form-control">
+							<label class="form-label" for="amount">Quantity</label>
+							<div class="form-select">
+								<select id="amount" name="amount">
+									<?php for ($n = 1; $n <= $most; $n++) { ?>
+										<option><?php echo $n ?></option>
+									<?php } ?>
+								</select>
+							</div>
+						</div>
+
+						<div class="form-control">
+							<button type="submit" class="form-button primary button-split"><span>Add to cart</span><span><?php echo money($product->price) ?></span></button>
+						</div>
+					</form>
+				<?php } else { ?>
+					<p><span class="form-button primary button-split disabled"><span>Sold out</span></span></p>
+				<?php } ?>
 
 				<details class="details" open>
 					<summary>Story &amp; origin</summary>

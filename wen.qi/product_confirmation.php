@@ -3,29 +3,41 @@ include "lib/php/functions.php";
 
 $page_title = "Order Confirmed";
 
-// Nothing is saved: this page only shows what the checkout form just sent.
-$product = null;
-if (isset($_POST["id"])) {
-	$id = (int) $_POST["id"];
-	$product = fetchOne("SELECT * FROM products WHERE id = $id");
-}
+$order = null;
+$methods = shippingMethods();
+$countries = ["United States", "Canada", "Mexico"];
+$items = getCartItems();
 
-if ($product) {
-	// shipping choices: cost and days until it arrives
-	$shipping_costs = ["standard" => 0, "express" => 20, "priority" => 30];
-	$shipping_days = ["standard" => 5, "express" => 4, "priority" => 3];
+if (count($_POST) > 0 && count($items) > 0) {
 	$method = "standard";
-	if (isset($_POST["shipping"]) && isset($shipping_costs[$_POST["shipping"]])) {
+	if (isset($_POST["shipping"]) && isset($methods[$_POST["shipping"]])) {
 		$method = $_POST["shipping"];
 	}
+	$country = "United States";
+	if (isset($_POST["country"]) && in_array($_POST["country"], $countries)) {
+		$country = $_POST["country"];
+	}
 
-	$tax = round($product->price * 0.07, 2);
-	$total = $product->price + $tax + $shipping_costs[$method];
-	$arrival = date("F j", strtotime("+" . $shipping_days[$method] . " days"));
-	$country = isset($_POST["country"]) ? $_POST["country"] : "United States";
-	$order_number = "FF-" . rand(10000, 99999);
+	$order = (object)[
+		"number" => "FF-" . rand(10000, 99999),
+		"email" => isset($_POST["email"]) ? $_POST["email"] : "",
+		"country" => $country,
+		"arrival" => date("F j", strtotime("+" . $methods[$method]->days . " days")),
+		"items" => $items,
+		"totals" => getTotals($items, $methods[$method]->cost)
+	];
 
-	$more = fetchAll("SELECT * FROM products WHERE id != " . $product->id . " ORDER BY featured DESC, id LIMIT 3");
+	$_SESSION["last_order"] = $order;
+	clearCart();
+} else if (isset($_SESSION["last_order"])) {
+	$order = $_SESSION["last_order"];
+}
+
+if ($order) {
+	$ordered_ids = array_map(function($item) {
+		return (int) $item->product->id;
+	}, $order->items);
+	$more = fetchAll("SELECT * FROM products WHERE id NOT IN (" . implode(",", $ordered_ids) . ") ORDER BY featured DESC, id LIMIT 3");
 }
 ?><!DOCTYPE html>
 <html lang="en">
@@ -38,7 +50,7 @@ if ($product) {
 
 	<div class="container">
 
-		<?php if (!$product) { ?>
+		<?php if (!$order) { ?>
 
 			<div class="center">
 				<h2>Nothing to confirm yet.</h2>
@@ -51,17 +63,17 @@ if ($product) {
 			<div class="check-circle">&#10003;</div>
 			<p class="eyebrow">Order confirmed</p>
 			<h1>Your order is in.</h1>
-			<?php if (!empty($_POST["email"])) { ?>
-				<p>Thank you for bringing a piece of <?php echo $product->origin ?> home. A confirmation has been sent to <?php echo htmlspecialchars($_POST["email"]) ?>.</p>
+			<?php if ($order->email != "") { ?>
+				<p>Thank you for bringing a piece of the world home. A confirmation has been sent to <?php echo htmlspecialchars($order->email) ?>.</p>
 			<?php } ?>
 		</div>
 
 		<div class="card hard">
 			<div class="grid gap order-strip">
-				<div class="col-xs-6 col-md-3"><span class="supporting">Order number</span><br><strong><?php echo $order_number ?></strong></div>
-				<div class="col-xs-6 col-md-3"><span class="supporting">Estimated arrival</span><br><strong><?php echo $arrival ?></strong></div>
-				<div class="col-xs-6 col-md-3"><span class="supporting">Order total</span><br><strong><?php echo money($total) ?></strong></div>
-				<div class="col-xs-6 col-md-3"><span class="supporting">Delivering to</span><br><strong><?php echo htmlspecialchars($country) ?></strong></div>
+				<div class="col-xs-6 col-md-3"><span class="supporting">Order number</span><br><strong><?php echo $order->number ?></strong></div>
+				<div class="col-xs-6 col-md-3"><span class="supporting">Estimated arrival</span><br><strong><?php echo $order->arrival ?></strong></div>
+				<div class="col-xs-6 col-md-3"><span class="supporting">Order total</span><br><strong><?php echo money($order->totals->total) ?></strong></div>
+				<div class="col-xs-6 col-md-3"><span class="supporting">Delivering to</span><br><strong><?php echo htmlspecialchars($order->country) ?></strong></div>
 			</div>
 			<hr>
 			<p class="eyebrow">Order progress</p>
@@ -76,15 +88,29 @@ if ($product) {
 				<span class="flex-stretch" style="text-align:right">Delivered</span>
 			</div>
 
-			<div class="cart-item">
-				<img src="<?php echo $product->image ?>" alt="<?php echo $product->name ?>">
-				<div class="flex-stretch">
-					<strong><?php echo $product->name ?></strong>
-					<p class="eyebrow"><?php echo $product->origin ?></p>
-					<p class="supporting">Qty 1</p>
+			<?php foreach ($order->items as $item) { ?>
+				<div class="cart-item">
+					<img src="<?php echo $item->product->image ?>" alt="<?php echo $item->product->name ?>">
+					<div class="flex-stretch">
+						<strong><?php echo $item->product->name ?></strong>
+						<p class="eyebrow"><?php echo $item->product->origin ?></p>
+						<?php if (count($item->choices) > 0) { ?>
+							<p class="supporting"><?php echo choicesText($item->choices) ?></p>
+						<?php } ?>
+						<p class="supporting">Qty <?php echo $item->amount ?></p>
+					</div>
+					<div class="price"><?php echo money($item->total) ?></div>
 				</div>
-				<div class="price"><?php echo money($product->price) ?></div>
-			</div>
+			<?php } ?>
+
+			<table class="table">
+				<tbody>
+					<tr><td>Subtotal</td><td><?php echo money($order->totals->subtotal) ?></td></tr>
+					<tr><td>Shipping</td><td><?php echo $order->totals->shipping == 0 ? "Free" : money($order->totals->shipping) ?></td></tr>
+					<tr><td>Tax</td><td><?php echo money($order->totals->tax) ?></td></tr>
+					<tr><td><strong>Total</strong></td><td><strong><?php echo money($order->totals->total) ?></strong></td></tr>
+				</tbody>
+			</table>
 
 			<div class="display-flex flex-align-center">
 				<a href="product_list.php" class="form-button primary flex-none auto-width">Continue shopping</a>
