@@ -32,13 +32,6 @@ if (count($_POST) > 0 && count($items) > 0) {
 } else if (isset($_SESSION["last_order"])) {
 	$order = $_SESSION["last_order"];
 }
-
-if ($order) {
-	$ordered_ids = array_map(function($item) {
-		return (int) $item->product->id;
-	}, $order->items);
-	$more = fetchAll("SELECT * FROM products WHERE id NOT IN (" . implode(",", $ordered_ids) . ") ORDER BY featured DESC, id LIMIT 3");
-}
 ?><!DOCTYPE html>
 <html lang="en">
 <head>
@@ -90,10 +83,10 @@ if ($order) {
 
 			<?php foreach ($order->items as $item) { ?>
 				<div class="cart-item">
-					<img src="<?php echo $item->product->image ?>" alt="<?php echo $item->product->name ?>">
+					<img src="<?php echo htmlspecialchars($item->product->image) ?>" alt="<?php echo htmlspecialchars($item->product->name) ?>">
 					<div class="flex-stretch">
-						<strong><?php echo $item->product->name ?></strong>
-						<p class="eyebrow"><?php echo $item->product->origin ?></p>
+						<strong><?php echo htmlspecialchars($item->product->name) ?></strong>
+						<p class="eyebrow"><?php echo htmlspecialchars($item->product->origin) ?></p>
 						<?php if (count($item->choices) > 0) { ?>
 							<p class="supporting"><?php echo choicesText($item->choices) ?></p>
 						<?php } ?>
@@ -119,16 +112,7 @@ if ($order) {
 			</div>
 		</div>
 
-		<p class="eyebrow">You may also like</p>
-		<div class="display-flex flex-align-center">
-			<h2 class="flex-stretch">More objects with a story</h2>
-			<a href="product_list.php" class="link-underline nowrap">View all objects &rsaquo;</a>
-		</div>
-		<div class="grid gap">
-			<?php foreach ($more as $item) { ?>
-				<div class="col-xs-6 col-md-4"><?php productCard($item) ?></div>
-			<?php } ?>
-		</div>
+		<?php showRecommendations(array_map(function($item) { return $item->product; }, $order->items)) ?>
 
 		<?php } ?>
 	</div>

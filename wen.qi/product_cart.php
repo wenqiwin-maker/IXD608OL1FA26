@@ -32,15 +32,15 @@ $page_title = "Shopping bag";
 				<?php foreach ($items as $item) { ?>
 					<?php $product = $item->product ?>
 					<div class="cart-item">
-						<a href="product_item.php?id=<?php echo $product->id ?>"><img src="<?php echo $product->image ?>" alt="<?php echo $product->name ?>"></a>
+						<a href="product_item.php?id=<?php echo $product->id ?>"><img src="<?php echo htmlspecialchars($product->image) ?>" alt="<?php echo htmlspecialchars($product->name) ?>"></a>
 						<div class="flex-stretch">
-							<p class="eyebrow"><?php echo $product->origin ?></p>
-							<h4><a href="product_item.php?id=<?php echo $product->id ?>"><?php echo $product->name ?></a></h4>
+							<p class="eyebrow"><?php echo htmlspecialchars($product->origin) ?></p>
+							<h4><a href="product_item.php?id=<?php echo $product->id ?>"><?php echo htmlspecialchars($product->name) ?></a></h4>
 							<p class="supporting">
 								<?php if (count($item->choices) > 0) { ?>
 									<?php echo choicesText($item->choices) ?>
 								<?php } else { ?>
-									Finish: <?php echo $product->finish ?>
+									Finish: <?php echo htmlspecialchars($product->finish) ?>
 								<?php } ?>
 							</p>
 							<div class="display-flex flex-align-center">
@@ -81,6 +81,8 @@ $page_title = "Shopping bag";
 				</div>
 			</div>
 		</div>
+
+		<?php showRecommendations(array_map(function($item) { return $item->product; }, $items)) ?>
 
 		<?php } ?>
 	</div>

@@ -195,7 +195,16 @@ function getCartItems() {
 		];
 	}, $cart);
 
-	return array_values(array_filter($items));
+	$items = array_values(array_filter($items));
+
+	$found = array_map(function($item) {
+		return $item->key;
+	}, $items);
+	$_SESSION["cart"] = array_values(array_filter($cart, function($line) use ($found) {
+		return in_array($line["key"], $found);
+	}));
+
+	return $items;
 }
 
 function getTotals($items, $shipping = 0) {

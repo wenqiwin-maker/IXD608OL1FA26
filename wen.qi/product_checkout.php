@@ -105,9 +105,9 @@ $page_title = "Checkout";
 						</div>
 						<?php foreach ($items as $item) { ?>
 							<div class="cart-item">
-								<img src="<?php echo $item->product->image ?>" alt="<?php echo $item->product->name ?>">
+								<img src="<?php echo htmlspecialchars($item->product->image) ?>" alt="<?php echo htmlspecialchars($item->product->name) ?>">
 								<div class="flex-stretch">
-									<strong><?php echo $item->product->name ?></strong>
+									<strong><?php echo htmlspecialchars($item->product->name) ?></strong>
 									<?php if (count($item->choices) > 0) { ?>
 										<p class="supporting"><?php echo choicesText($item->choices) ?></p>
 									<?php } ?>

@@ -39,7 +39,7 @@ if ($product) {
 		<div class="grid gap">
 			<div class="col-xs-12 col-md-7">
 				<figure class="figure product item-photo">
-					<img id="gallery-big" src="<?php echo $images[0] ?>" alt="<?php echo $product->name ?>">
+					<img id="gallery-big" src="<?php echo htmlspecialchars($images[0]) ?>" alt="<?php echo htmlspecialchars($product->name) ?>">
 					<?php if (count($images) > 1) { ?>
 						<button type="button" class="gallery-arrow gallery-prev" aria-label="Previous photo">&lsaquo;</button>
 						<button type="button" class="gallery-arrow gallery-next" aria-label="Next photo">&rsaquo;</button>
@@ -48,20 +48,20 @@ if ($product) {
 				<?php if (count($images) > 1) { ?>
 					<div class="gallery-thumbs">
 						<?php foreach ($images as $i => $image) { ?>
-							<img class="thumb <?php echo $i == 0 ? 'active' : '' ?>" src="<?php echo $image ?>" alt="Photo <?php echo $i + 1 ?> of <?php echo $product->name ?>">
+							<img class="thumb <?php echo $i == 0 ? 'active' : '' ?>" src="<?php echo htmlspecialchars($image) ?>" alt="Photo <?php echo $i + 1 ?> of <?php echo htmlspecialchars($product->name) ?>">
 						<?php } ?>
 					</div>
 				<?php } ?>
 			</div>
 			<div class="col-xs-12 col-md-5">
-				<p class="eyebrow"><?php echo $product->origin ?> &middot; <?php echo $product->craft ?></p>
-				<h1><?php echo $product->name ?></h1>
+				<p class="eyebrow"><?php echo htmlspecialchars($product->origin) ?> &middot; <?php echo htmlspecialchars($product->craft) ?></p>
+				<h1><?php echo htmlspecialchars($product->name) ?></h1>
 				<p class="price"><?php echo money($product->price) ?></p>
-				<p><?php echo $product->description ?></p>
+				<p><?php echo nl2br(htmlspecialchars($product->description)) ?></p>
 				<hr>
 				<div class="display-flex">
 					<strong class="flex-stretch">Finish</strong>
-					<span><?php echo $product->finish ?></span>
+					<span><?php echo htmlspecialchars($product->finish) ?></span>
 				</div>
 
 				<?php if ($product->stock > 0) { ?>
@@ -103,7 +103,7 @@ if ($product) {
 
 				<details class="details" open>
 					<summary>Story &amp; origin</summary>
-					<p>Made in <?php echo $product->origin ?> using <?php echo strtolower($product->material) ?> and the craft of <?php echo strtolower($product->craft) ?>.</p>
+					<p>Made in <?php echo htmlspecialchars($product->origin) ?> using <?php echo htmlspecialchars(strtolower($product->material)) ?> and the craft of <?php echo htmlspecialchars(strtolower($product->craft)) ?>.</p>
 				</details>
 				<details class="details">
 					<summary>Dimensions &amp; care</summary>
@@ -115,6 +115,8 @@ if ($product) {
 				</details>
 			</div>
 		</div>
+
+		<?php showRecommendations([$product]) ?>
 
 		<?php } ?>
 	</div>

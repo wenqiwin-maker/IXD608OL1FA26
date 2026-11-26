@@ -1,0 +1,122 @@
+.admin-title {
+	gap: 1em;
+}
+
+.admin-table-wrap {
+	overflow-x: auto;
+}
+
+.admin-table {
+	width: 100%;
+	border-collapse: collapse;
+}
+
+.admin-table th,
+.admin-table td,
+.admin-table td:last-child {
+	text-align: left;
+	vertical-align: middle;
+}
+
+.admin-table td:last-child {
+	text-align: right;
+}
+
+.admin-table img {
+	display: block;
+	width: 3.5em;
+	height: 3.5em;
+	object-fit: cover;
+	border-radius: 0.6em;
+}
+
+.stock-out {
+	color: var(--color-error);
+	font-weight: 600;
+	white-space: nowrap;
+}
+
+.admin-card {
+	margin-bottom: 1em;
+}
+
+.admin-card h4 {
+	margin-top: 0;
+}
+
+.form-textarea {
+	width: 100%;
+	border-radius: 0.8em;
+	font: inherit;
+	resize: vertical;
+}
+
+.photo-previews {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 0.6em;
+}
+
+.photo-previews figure {
+	margin: 0;
+	text-align: center;
+	font-size: 0.75em;
+}
+
+.photo-previews img {
+	display: block;
+	width: 6.5em;
+	height: 6.5em;
+	object-fit: cover;
+	border-radius: 0.8em;
+	border: 1px solid var(--color-light-grey);
+}
+
+input[type="file"] {
+	max-width: 100%;
+}
+
+.admin-save {
+	flex-wrap: wrap;
+	gap: 1em;
+	margin: 1em 0 3em;
+}
+
+.admin-save .link-underline {
+	margin-left: 0;
+}
+
+.danger {
+	color: var(--color-error);
+}
+
+.form-button.primary.danger-button {
+	background-color: var(--color-error);
+	border-color: var(--color-error);
+}
+
+.admin-confirm {
+	max-width: 32em;
+}
+
+.admin-confirm img {
+	width: 10em;
+	height: 10em;
+	object-fit: cover;
+	border-radius: var(--radius-card);
+}
+
+@media (max-width: 640px) {
+	.wide-only {
+		display: none;
+	}
+
+	.admin-table a strong {
+		text-decoration: underline;
+	}
+
+	.admin-table img {
+		width: 3em;
+		height: 3em;
+	}
+}
